@@ -1,6 +1,6 @@
-# output skryptu `system_check.sh`
+# script output  `system_check.sh`
 
-```tekst
+```text
 ==== System Check ====
 Date: Sun 09 Nov 2025 09:58:08 PM UTC
 Hostname: ubuntu
@@ -25,7 +25,7 @@ IP addresses:
 =============================
 ```
 
-# kod skryptu system_check.sh
+# script code `system_check.sh`
 ```text
 echo "==== System Check ===="
 echo "Date: $(date)"
