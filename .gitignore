@@ -1,0 +1,13 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Real scan outputs
+scans/*.csv
+scans/*.json
+!scans/example-anonymized.*
+
+# OS junk
+.DS_Store
+*.swp
