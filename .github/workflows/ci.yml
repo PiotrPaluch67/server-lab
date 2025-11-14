@@ -1,0 +1,35 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: |
+          python -m venv venv
+          .\\venv\\Scripts\\activate
+          pip install -r requirements.txt
+
+      - name: Lint Bash
+        run: shellcheck scripts/*.sh
+
+      - name: Lint Python
+        run: |
+          .\\venv\\Scripts\\activate
+          pip install pylint
+          pylint scripts/network-scanner.py --fail-under=8
+
+      - name: Build Docker
+        run: docker-compose build
