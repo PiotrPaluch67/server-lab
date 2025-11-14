@@ -1,3 +1,4 @@
+# .github/workflows/ci.yml
 name: CI/CD
 
 on:
@@ -19,17 +20,20 @@ jobs:
       - name: Install Python deps
         run: |
           python -m venv venv
-          .\\venv\\Scripts\\activate
+          source venv/bin/activate
           pip install -r requirements.txt
+          pip install pylint
 
-      - name: Lint Bash
-        run: shellcheck scripts/*.sh
+      - name: Lint Bash (shellcheck)
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: scripts
 
       - name: Lint Python
         run: |
-          .\\venv\\Scripts\\activate
-          pip install pylint
+          source venv/bin/activate
           pylint scripts/network-scanner.py --fail-under=8
 
       - name: Build Docker
-        run: docker-compose build
+        run: |
+          docker-compose build
